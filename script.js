@@ -6,7 +6,7 @@
 const SUPABASE_URL = "https://lwwxlfdrubmrvssoakzy.supabase.co";
 
 
-const SUPABASE_KEY = "sb_publishable_4_iExkXqFFQO524J_qYtiA_6eInaWkK";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx3d3hsZmRydWJtcnZzc29ha3p5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5NjkzNDksImV4cCI6MjEwMzU0NTM0OX0.202o0arILUJT2zJ_ttwh0ZceUHZ9i0mnqqJImz94MUE";
 
 
 
