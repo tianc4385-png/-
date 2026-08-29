@@ -1,179 +1,79 @@
-let moods =
-JSON.parse(localStorage.getItem("moods"))
-||
-[];
+// Supabase 配置
+
+const SUPABASE_URL = "你的Project URL";
+
+const SUPABASE_KEY = "你的Publishable key";
 
 
-
-function save(){
-
-localStorage.setItem(
-"moods",
-JSON.stringify(moods)
-);
-
-}
-
-
-
-
-function addMood(){
-
-
-let input =
-document.getElementById(
-"moodInput"
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
 
 
+// 加载心情
 
-let text =
-input.value.trim();
+async function loadMoods(){
 
+    const {data,error} = await supabaseClient
+        .from("moods")
+        .select("*")
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
 
 
-if(text===""){
+    if(error){
+        console.log(error);
+        return;
+    }
 
-alert("请先写一点心情");
 
-return;
+    const list =
+    document.getElementById("moodList");
 
-}
 
+    const count =
+    document.getElementById("count");
 
 
-let mood={
+    count.innerHTML=data.length;
 
 
-content:text,
+    list.innerHTML="";
 
 
-time:new Date()
-.toLocaleString()
+    data.forEach(item=>{
 
 
+        let div=document.createElement("div");
 
-};
 
+        div.className="mood";
 
 
-moods.unshift(mood);
+        div.innerHTML=`
 
+        <p>
+        ${item.content}
+        </p>
 
 
-save();
+        <div class="time">
+        ${new Date(item.created_at)
+        .toLocaleString()}
+        </div>
 
+        `;
 
 
-input.value="";
+        list.appendChild(div);
 
 
-render();
-
-
-
-}
-
-
-
-
-
-function render(){
-
-
-let list =
-document.getElementById(
-"moodList"
-);
-
-
-
-let count =
-document.getElementById(
-"count"
-);
-
-
-
-count.innerHTML=
-moods.length;
-
-
-
-list.innerHTML="";
-
-
-
-moods.forEach(
-(item,index)=>{
-
-
-let div=
-document.createElement(
-"div"
-);
-
-
-
-div.className="mood";
-
-
-
-div.innerHTML=`
-
-<span 
-class="delete"
-onclick="removeMood(${index})">
-删除
-</span>
-
-
-<p>
-${item.content}
-</p>
-
-
-<div class="time">
-
-${item.time}
-
-</div>
-
-
-`;
-
-
-
-list.appendChild(div);
-
-
-
-}
-
-);
-
-
-
-}
-
-
-
-function removeMood(index){
-
-
-if(confirm("确定删除这条心情吗？")){
-
-
-moods.splice(index,1);
-
-
-save();
-
-
-render();
-
-
-}
+    });
 
 
 }
@@ -181,4 +81,62 @@ render();
 
 
 
-render();
+// 发布心情
+
+async function addMood(){
+
+
+    let input =
+    document.getElementById(
+        "moodInput"
+    );
+
+
+    let text=input.value.trim();
+
+
+
+    if(!text){
+
+        alert("请输入心情");
+
+        return;
+
+    }
+
+
+
+    const {error}=await supabaseClient
+    .from("moods")
+    .insert({
+
+        content:text
+
+    });
+
+
+
+    if(error){
+
+        console.log(error);
+
+        alert("发布失败");
+
+        return;
+
+    }
+
+
+
+    input.value="";
+
+
+    loadMoods();
+
+
+}
+
+
+
+
+loadMoods();
