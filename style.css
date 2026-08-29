@@ -406,3 +406,52 @@ padding:25px;
 }
 
 }
+}/* 云端心情卡片 */
+
+.mood-item{
+
+background:
+
+rgba(255,255,255,.12);
+
+
+padding:20px;
+
+
+border-radius:20px;
+
+
+animation:
+
+show .5s;
+
+
+box-shadow:
+
+0 10px 30px rgba(0,0,0,.15);
+
+
+}
+
+
+.mood-item .content{
+
+font-size:18px;
+
+line-height:1.6;
+
+
+}
+
+
+
+.mood-item .time{
+
+margin-top:15px;
+
+font-size:13px;
+
+color:#ccc;
+
+
+}
