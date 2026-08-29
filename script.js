@@ -1,9 +1,16 @@
-// Supabase 配置
+// ================================
+// Supabase 云端配置
+// ================================
+
 
 const SUPABASE_URL = "https://lwwxlfdrubmrvssoakzy.supabase.co";
 
+
 const SUPABASE_KEY = "sb_publishable_4_iExkXqFFQO524J_qYtiA_6eInaWkK";
 
+
+
+// 创建连接
 
 const supabaseClient = supabase.createClient(
     SUPABASE_URL,
@@ -11,13 +18,22 @@ const supabaseClient = supabase.createClient(
 );
 
 
-// 加载心情
+
+
+// ================================
+// 加载所有心情
+// ================================
+
 
 async function loadMoods(){
 
-    const {data,error} = await supabaseClient
+
+    const { data, error } = await supabaseClient
+
         .from("moods")
+
         .select("*")
+
         .order(
             "created_at",
             {
@@ -26,54 +42,76 @@ async function loadMoods(){
         );
 
 
+
     if(error){
+
         console.log(error);
+
         return;
+
     }
 
 
-    const list =
-    document.getElementById("moodList");
+
+    const list = document.getElementById(
+        "moodList"
+    );
 
 
-    const count =
-    document.getElementById("count");
+    const count = document.getElementById(
+        "count"
+    );
 
-
-    count.innerHTML=data.length;
 
 
     list.innerHTML="";
 
 
+
+    count.innerHTML=data.length;
+
+
+
+
     data.forEach(item=>{
 
 
-        let div=document.createElement("div");
+        let box=document.createElement(
+            "div"
+        );
 
 
-        div.className="mood";
+        box.className="mood-item";
 
 
-        div.innerHTML=`
 
-        <p>
-        ${item.content}
-        </p>
+        box.innerHTML=`
+
+            <div class="content">
+
+                ${item.content}
+
+            </div>
 
 
-        <div class="time">
-        ${new Date(item.created_at)
-        .toLocaleString()}
-        </div>
+            <div class="time">
+
+                ${new Date(
+                    item.created_at
+                ).toLocaleString()}
+
+            </div>
 
         `;
 
 
-        list.appendChild(div);
+
+        list.appendChild(box);
+
 
 
     });
+
 
 
 }
@@ -81,24 +119,38 @@ async function loadMoods(){
 
 
 
+
+
+// ================================
 // 发布心情
+// ================================
+
 
 async function addMood(){
 
 
-    let input =
+
+    const input =
     document.getElementById(
         "moodInput"
     );
 
 
-    let text=input.value.trim();
+
+    const text =
+    input.value.trim();
 
 
 
-    if(!text){
 
-        alert("请输入心情");
+
+    if(text===""){
+
+
+        alert(
+            "请输入你的心情"
+        );
+
 
         return;
 
@@ -106,37 +158,67 @@ async function addMood(){
 
 
 
+
+
+
     const {error}=await supabaseClient
-    .from("moods")
-    .insert({
 
-        content:text
 
-    });
+        .from("moods")
+
+
+        .insert([
+
+            {
+
+                content:text
+
+            }
+
+        ]);
+
+
+
 
 
 
     if(error){
 
+
         console.log(error);
 
-        alert("发布失败");
+
+        alert(
+            "发布失败"
+        );
+
 
         return;
 
+
     }
+
+
+
 
 
 
     input.value="";
 
 
+
     loadMoods();
+
 
 
 }
 
 
+
+
+
+
+// 页面打开自动加载
 
 
 loadMoods();
