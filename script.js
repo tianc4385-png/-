@@ -1,8 +1,8 @@
 // Supabase 配置
 
-const SUPABASE_URL = "你的Project URL";
+const SUPABASE_URL = "https://lwwxlfdrubmrvssoakzy.supabase.co";
 
-const SUPABASE_KEY = "你的Publishable key";
+const SUPABASE_KEY = "sb_publishable_4_iExkXqFFQO524J_qYtiA_6eInaWkK";
 
 
 const supabaseClient = supabase.createClient(
