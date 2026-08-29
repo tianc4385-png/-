@@ -1,1 +1,101 @@
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>心情 · Mood Wall</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="background"></div>
+
+
+<div class="container">
+
+
+<header>
+
+<h1>🌙 心情墙</h1>
+
+<p>
+记录每一个瞬间，收藏每一次情绪
+</p>
+
+</header>
+
+
+
+<section class="card write">
+
+
+<h2>写下此刻的心情</h2>
+
+
+<textarea 
+id="moodInput"
+placeholder="今天的心情是什么样的？">
+</textarea>
+
+
+
+<button onclick="addMood()">
+
+发布心情
+
+</button>
+
+
+
+<div class="count">
+
+已记录：
+<span id="count">
+0
+</span>
+条心情
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section class="card">
+
+
+<h2>
+我的心情档案
+</h2>
+
+
+<div id="moodList">
+
+</div>
+
+
+</section>
+
+
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
